@@ -18,19 +18,11 @@ public class Cube extends JComponent {
 	float yRotation = 0.0f;
 	float zRotation = 0.0f;
 
-	boolean drawWires = true;
-	boolean fillFront;
-	boolean fillBack;
-	boolean fillLeft;
-	boolean fillRight;
-	boolean fillTop;
-	boolean fillBottom;
 
 	Vector3D cubeOrigin;
 
 	Face[] faces;
 
-	public float RotateX;
 
 	public float getRotateX() {
 		return xRotation;
@@ -42,7 +34,6 @@ public class Cube extends JComponent {
 		xRotation = value;
 	}
 
-	public float RotateY;
 
 	public float getRotateY() {
 		return yRotation;
@@ -53,6 +44,7 @@ public class Cube extends JComponent {
 		RotateCubeY(value - yRotation);
 		yRotation = value;
 	}
+	
 
 	public float getRotateZ() {
 		return zRotation;
@@ -64,71 +56,8 @@ public class Cube extends JComponent {
 		zRotation = value;
 	}
 
-	public boolean DrawWires;
-
-	public boolean getDrawWires() {
-		return drawWires;
-	}
-
-	public void setDrawWires(boolean value) {
-		drawWires = value;
-	}
 
 	public boolean FillFront;
-
-	public boolean getFillFront() {
-		return fillFront;
-	}
-
-	public void setFillFront(boolean value) {
-		fillFront = value;
-	}
-
-	public boolean FillBack;
-
-	public boolean getFillBack() {
-		return fillBack;
-	}
-
-	public void setFillBack(boolean value) {
-		fillBack = value;
-	}
-
-	public boolean FillLeft;
-
-	public boolean getFillLeft() {
-		return fillLeft;
-	}
-
-	public void setFillLeft(boolean value) {
-		fillLeft = value;
-	}
-
-	public boolean FillRight;
-
-	public boolean getFillRight() {
-		return fillRight;
-	}
-
-	public void setFillRight(boolean value) {
-		fillRight = value;
-	}
-
-	public boolean getFillTop() {
-		return fillTop;
-	}
-
-	public void setFillTop(boolean value) {
-		fillTop = value;
-	}
-
-	public boolean getFillBottom() {
-		return fillBottom;
-	}
-
-	public void setFillBottom(boolean value) {
-		fillBottom = value;
-	}
 
 	public Cube(int side) {
 		width = side;
@@ -319,9 +248,9 @@ public class Cube extends JComponent {
 		g.setColor(Color.BLACK);
 		for (int i = faces.length - 1; i >= 0; i--) // draw faces from back to front
 		{
-			try {
 			g.drawLine((int) faces[i].Corners2D[0].x, (int) faces[i].Corners2D[0].y, (int) faces[i].Corners2D[1].x,
 					(int) faces[i].Corners2D[1].y);
+			System.out.println("paintComponent"+(int) faces[i].Corners2D[0].x);
 			g.drawLine((int) faces[i].Corners2D[1].x, (int) faces[i].Corners2D[1].y, (int) faces[i].Corners2D[2].x,
 					(int) faces[i].Corners2D[2].y);
 			g.drawLine((int) faces[i].Corners2D[2].x, (int) faces[i].Corners2D[2].y, (int) faces[i].Corners2D[3].x,
@@ -329,12 +258,7 @@ public class Cube extends JComponent {
 			g.drawLine((int) faces[i].Corners2D[3].x, (int) faces[i].Corners2D[3].y, (int) faces[i].Corners2D[0].x,
 					(int) faces[i].Corners2D[0].y);
 
-			}
-			catch (Exception e) {
-				e.printStackTrace();
-			    System.out.print("Hello");
-
-			}
+	
 		}
 
 	}

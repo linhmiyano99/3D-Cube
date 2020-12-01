@@ -79,6 +79,7 @@ public class Draw3D {
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
 					int value = scrollY.getValue();
+					System.out.print(value);
 					comp.setRotateY(value);
 					Draw();
 
@@ -117,6 +118,7 @@ public class Draw3D {
 		 btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				comp.InitializeCube();
 				scrollX.setValue(0);
 				scrollY.setValue(0);
 				scrollZ.setValue(0);

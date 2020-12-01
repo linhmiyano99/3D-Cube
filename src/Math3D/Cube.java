@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 
@@ -98,8 +97,13 @@ public class Cube extends JComponent {
 		InitializeCube();
 	}
 
-	private void InitializeCube() {
+	void InitializeCube() {
 		// Fill in the cube
+		
+		 xRotation = 0.0f;
+			 yRotation = 0.0f;
+			 zRotation = 0.0f;
+
 
 		faces = new Face[6]; // cube has 6 faces
 
@@ -397,7 +401,7 @@ public class Cube extends JComponent {
 
 		return null; // not found
 	}
-
+/*
 	private Rectangle getDrawingBounds() {
 		// Find the farthest most points to calculate the size of the returning bitmap
 		float left = Float.MAX_VALUE;
@@ -420,7 +424,7 @@ public class Cube extends JComponent {
 
 		return new Rectangle(0, 0, (int) Math.round(right - left), (int) Math.round(bottom - top));
 	}
-
+*/
 	public static Vector3D RotateX(Vector3D point3D, float degrees) {
 		// [ a b c ] [ x ] [ x*a + y*b + z*c ]
 		// [ d e f ] [ y ] = [ x*d + y*e + z*f ]

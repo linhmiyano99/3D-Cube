@@ -1,10 +1,14 @@
 package Math3D;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
@@ -250,7 +254,6 @@ public class Cube extends JComponent {
 		{
 			g.drawLine((int) faces[i].Corners2D[0].x, (int) faces[i].Corners2D[0].y, (int) faces[i].Corners2D[1].x,
 					(int) faces[i].Corners2D[1].y);
-			System.out.println("paintComponent"+(int) faces[i].Corners2D[0].x);
 			g.drawLine((int) faces[i].Corners2D[1].x, (int) faces[i].Corners2D[1].y, (int) faces[i].Corners2D[2].x,
 					(int) faces[i].Corners2D[2].y);
 			g.drawLine((int) faces[i].Corners2D[2].x, (int) faces[i].Corners2D[2].y, (int) faces[i].Corners2D[3].x,
@@ -263,11 +266,52 @@ public class Cube extends JComponent {
 
 	}
 	
-	 public void DrawCube(Point drawOrigin)
+	 public void DrawCube(Point drawOrigin, Graphics g)
      {
          //Get the corresponding 2D
          Update2DPoints(drawOrigin);
+         for (int i = faces.length - 1; i >= 0; i--) // draw faces from back to front
+ 		{
+ 			g.drawLine((int) faces[i].Corners2D[0].x, (int) faces[i].Corners2D[0].y, (int) faces[i].Corners2D[1].x,
+ 					(int) faces[i].Corners2D[1].y);
+ 			g.drawLine((int) faces[i].Corners2D[1].x, (int) faces[i].Corners2D[1].y, (int) faces[i].Corners2D[2].x,
+ 					(int) faces[i].Corners2D[2].y);
+ 			g.drawLine((int) faces[i].Corners2D[2].x, (int) faces[i].Corners2D[2].y, (int) faces[i].Corners2D[3].x,
+ 					(int) faces[i].Corners2D[3].y);
+ 			g.drawLine((int) faces[i].Corners2D[3].x, (int) faces[i].Corners2D[3].y, (int) faces[i].Corners2D[0].x,
+ 					(int) faces[i].Corners2D[0].y);
 
+ 	
+ 		}
+     }
+	 
+	 public BufferedImage getDrawCube(Point drawOrigin)
+     {
+         //Get the corresponding 2D
+         Update2DPoints(drawOrigin);
+         Dimension imgDim = new Dimension(500,500);
+         BufferedImage mazeImage = new BufferedImage(imgDim.width, imgDim.height, BufferedImage.TYPE_INT_RGB);
+         Graphics2D g2d = mazeImage.createGraphics();
+	        g2d.setBackground(Color.WHITE);
+	        g2d.fillRect(0, 0, imgDim.width, imgDim.height);
+	        g2d.setColor(Color.BLACK);
+	        BasicStroke bs = new BasicStroke(2);
+	        g2d.setStroke(bs);
+         for (int i = faces.length - 1; i >= 0; i--) // draw faces from back to front
+ 		{
+        	 g2d.drawLine((int) faces[i].Corners2D[0].x, (int) faces[i].Corners2D[0].y, (int) faces[i].Corners2D[1].x,
+ 					(int) faces[i].Corners2D[1].y);
+ 			g2d.drawLine((int) faces[i].Corners2D[1].x, (int) faces[i].Corners2D[1].y, (int) faces[i].Corners2D[2].x,
+ 					(int) faces[i].Corners2D[2].y);
+ 			g2d.drawLine((int) faces[i].Corners2D[2].x, (int) faces[i].Corners2D[2].y, (int) faces[i].Corners2D[3].x,
+ 					(int) faces[i].Corners2D[3].y);
+ 			g2d.drawLine((int) faces[i].Corners2D[3].x, (int) faces[i].Corners2D[3].y, (int) faces[i].Corners2D[0].x,
+ 					(int) faces[i].Corners2D[0].y);
+
+ 			
+ 		}
+         g2d.dispose();
+         return mazeImage;
      }
 
 	/*

@@ -1,104 +1,138 @@
 package Math3D;
 
-import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class Draw3D {
 	static final Cube comp = new Cube(200, 400, 150);
 	static float rotateX = 0.0f, rotateY = 0.0f, rotateZ =0.0f;
 	static JFrame testFrame = new JFrame();
-
+	static BufferedImage mazeImage;
+	static JLabel wIcon;
 	public static void main(String[] args) {
 
-		
 		
 		testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		testFrame.setVisible(true);
-		testFrame.setBounds(100, 100, 1200, 1000);
+		testFrame.setBounds(100, 100, 1000, 800);
 		testFrame.setBackground(Color.WHITE);
+		testFrame.setLayout(new FlowLayout ());
 
+	
+		mazeImage = comp.getDrawCube(new Point(300,300));
+		wIcon = new JLabel(new ImageIcon(mazeImage));
+		
+		wIcon.setLocation(0,0);
+		testFrame.add(wIcon);
+		
 		Label lx, ly, lz;
 		Button btnReset;
-		//SeekBar  scrollX, scrollY, scrollZ;
-		JTextField txtX, txtY, txtZ;
-		 lx = new Label(); testFrame.add(lx);
+		JSlider  scrollX, scrollY, scrollZ;
+		//JTextField txtX, txtY, txtZ;
+		 lx = new Label(); 
+		 testFrame.add(lx);
 		 lx.setText("X");
-		 lx.setBounds(700, 100, 50, 50);
+		 lx.setBounds(700, 100, 10, 10);
+		 
 		  
-		 ly = new Label(); testFrame.add(ly); 
-		 ly.setBounds(700, 200, 50, 50);
+		 scrollX = new JSlider  (JSlider.HORIZONTAL, 360, 0); 
+		 testFrame.add(scrollX); 
+		 scrollX.setBounds(800, 100, 300, 50);
+		 scrollX.addChangeListener(new ChangeListener() {
+
+			@Override
+			public void stateChanged(ChangeEvent arg0) {
+				int value = scrollX.getValue();
+				comp.setRotateX(value);
+				Draw();
+
+			}
+			 
+		 });
+		  
+		 ly = new Label(); 
+		 testFrame.add(ly); 
+		 ly.setBounds(700, 200, 10, 10);
 		 ly.setText("Y");
+		 
+		
 		  
-		 lz = new Label(); testFrame.add(lz); 
-		 lz.setBounds(700, 300, 50, 50);
+		 scrollY = new JSlider  (JSlider.HORIZONTAL, 360, 0); 
+		 testFrame.add(scrollY); 
+		 scrollY.setBounds(800, 200, 300, 50);
+		 scrollY.addChangeListener(new ChangeListener() {
+
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					int value = scrollY.getValue();
+					comp.setRotateY(value);
+					Draw();
+
+				}
+				 
+			 });
+		 
+		  
+		 lz = new Label(); 
+		 testFrame.add(lz); 
+		 lz.setBounds(700, 300, 10, 10);
 		 lz.setText("Z");
+		 
+
+		  
+		 scrollZ = new JSlider  (JSlider.HORIZONTAL, 360, 0); 
+		 testFrame.add(scrollZ); 
+		 scrollZ.setBounds(800, 300, 300, 50);
+		 scrollZ.addChangeListener(new ChangeListener() {
+
+				@Override
+				public void stateChanged(ChangeEvent arg0) {
+					int value = scrollZ.getValue();
+					comp.setRotateZ(value);
+					Draw();
+
+				}
+				 
+			 });
 		  
 		  
 		 btnReset = new Button("Reset"); 
 		 testFrame.add(btnReset);
-		 btnReset.setBackground(Color.darkGray);
 		 btnReset.setBounds(700, 400, 50, 50);
 			System.out.print("Reset " + btnReset.getWidth()+ " ");
 		 btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				rotateX = 0f;
-				rotateY = 0f;
-				rotateZ = 0f;
-				System.out.print("Reset " + btnReset.getWidth()+ " ");		
-				System.out.print("x " + lx.getWidth()+ " ");				
+				scrollX.setValue(0);
+				scrollY.setValue(0);
+				scrollZ.setValue(0);
+
+				Draw();
+
 			}
 			 
 		 });
 
-		  
-	/*	  
-		 scrollX = new JSlider  (); 
-		 testFrame.add(scrollX); 
-		 scrollX.setBounds(800, 100, 300, 50);
-		  
-		 scrollY = new JSlider  (JSlider.HORIZONTAL, 10, 5); 
-		 testFrame.add(scrollY); 
-		 scrollY.setBounds(800, 200, 300, 50);
-		  
-		 scrollZ = new JSlider  (JSlider.HORIZONTAL, 10, 5); 
-		 testFrame.add(scrollZ); 
-		 scrollZ.setBounds(800, 300, 300, 50);
-*/
-		
-	/*	 txtX = new JTextField();
-		 testFrame.add(txtX); 
-		 txtX.setBounds(800, 100, 300, 50);
-		 
-		 txtY = new JTextField();
-		 testFrame.add(txtY); 
-		 txtY.setBounds(800, 200, 300, 50);
-		 
-		 txtZ = new JTextField();
-		 testFrame.add(txtZ); 
-		 txtZ.setBounds(800, 300, 300, 50);
-		 */ 
-		 
-
-		Draw( comp,  testFrame,  50,  rotateY,  rotateZ) ;
-		
-
 	}
-	public static void Draw(Cube comp, JFrame testFrame, float rotateX, float rotateY, float rotateZ) {
-		comp.setRotateX(rotateX);
-		comp.setRotateY(rotateY);
-		comp.setRotateZ(rotateZ);
-		comp.DrawCube(new Point(300,300));
-
-		testFrame.getContentPane().add(comp, BorderLayout.CENTER);
+	public static void Draw() {
+		
+		mazeImage = comp.getDrawCube(new Point(200,200));
+		wIcon.setIcon(new ImageIcon(mazeImage));
+		wIcon.updateUI();
+	
 	}
 }

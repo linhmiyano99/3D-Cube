@@ -296,7 +296,8 @@ public class Cube extends JComponent {
          Dimension imgDim = new Dimension(500,500);
          BufferedImage mazeImage = new BufferedImage(imgDim.width, imgDim.height, BufferedImage.TYPE_INT_RGB);
          Graphics2D g2d = mazeImage.createGraphics();
-	        g2d.setBackground(Color.WHITE);
+	        g2d.setBackground(new Color(238,238,238));
+
 	        g2d.fillRect(0, 0, imgDim.width, imgDim.height);
 	        g2d.setColor(Color.BLACK);
 	        BasicStroke bs = new BasicStroke(2);

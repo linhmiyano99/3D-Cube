@@ -27,7 +27,6 @@ public class Draw3D {
 	static JPanel rotate ;
 	public static void main(String[] args) {
 
-		
 		testFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		testFrame.setVisible(true);
